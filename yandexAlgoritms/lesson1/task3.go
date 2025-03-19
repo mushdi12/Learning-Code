@@ -9,6 +9,7 @@ import (
 
 func readNumber() string {
 	reader := bufio.NewReader(os.Stdin)
+
 	input_number, err := reader.ReadString('\n')
 	if err != nil {
 		fmt.Println(err)
@@ -25,6 +26,9 @@ func readNumber() string {
 }
 
 func main() {
+
+	writer := bufio.NewWriter(os.Stdout)
+
 	var book_number, result string
 	added_number := readNumber()
 	//fmt.Print(added_number)
@@ -37,6 +41,11 @@ func main() {
 			result += "NO\n"
 		}
 	}
-	fmt.Print(result)
+	_, err := writer.WriteString(result)
+
+	err = writer.Flush()
+	if err != nil {
+		panic(err)
+	}
 
 }
